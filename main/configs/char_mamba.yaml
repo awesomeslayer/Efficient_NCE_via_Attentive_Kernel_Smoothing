@@ -1,0 +1,39 @@
+seeds: [1,2,3,4,5]
+dataset_name: "CharacterTrajectories"
+
+plot_data: false
+add_time: "no"    
+test_drop_rates: false          # Нет пропусков -> маска не нужна
+drop_rates: [0.0]               # Ставим 0.0 для регулярных данных
+
+inspect_interpolation: false      
+save_attention_weights: false     
+
+test_noise_robustness: false
+test_noise_levels: [0.0, 0.01, 0.02, 0.05, 0.1, 0.3, 0.5, 0.7]
+
+data_dir: "./data/"
+results_dir: "experiment_mamba_new"
+plots_dir: "./plots"
+log_dir: "logs"
+runs_dir: "runs"
+
+num_epochs: 25
+batch_size: 256
+time_scaling_factors: ["no"]
+
+# ПАРАМЕТРЫ МАМБЫ И РАЗМЕРНОСТЬ
+hidden_dim: 152 # <--- СЮДА ВПИШЕШЬ ЧИСЛО ИЗ СКРИПТА НИЖЕ
+lr: 0.009
+tolerances: [0.001]
+weight_decay: 0.00001
+
+mamba_params:
+  pscan: true
+  n_layers: 2       # 2 слоя (стандарт)
+  d_state: 16       # Размер памяти
+  d_conv: 4         # Окно свертки
+  expand_factor: 2  # Расширение внутри блока
+
+experiments_to_run:
+  mamba: true       # <--- Оставляем только мамбу

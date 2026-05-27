@@ -1,0 +1,64 @@
+seeds: [1,2,3,4,5]
+dataset_name: "SpokenArabicDigits"
+inspect_interpolation: true      
+save_attention_weights: true     
+
+test_noise_robustness: true
+test_noise_levels: [0.0, 0.01, 0.02, 0.05, 0.1, 0.3, 0.5, 0.7]
+
+data_dir: "./data/"
+results_dir: "experiment_best"
+log_dir: "logs"
+runs_dir: "runs"
+add_time: "no"
+
+num_epochs: 13
+batch_size: 2048
+time_scaling_factors: ["no"]
+tolerances : [0.001]
+lr: 0.001
+weight_decay : 0.0001
+hidden_dim: 128
+
+experiments_to_run:
+  baseline: true
+  kernel: true
+  gp: true
+  qformer: true
+  conv: true
+  odernn: false
+  grud: false
+  log_ncde: false
+
+baseline_params:
+  interpolations: ["cubic", "linear"] 
+
+kernel_params:
+  kernels: ['gaussian']
+  bandwidths: [0.05]
+
+gp_params:
+  length_scales: [0.6]
+  noise_stds: [0.01]
+
+qformer_params:
+  kernels: ['gaussian', 'gp']
+  aggregations: ["concat"] 
+  bandwidth_lists_same:
+    - [1.4, 1.4, 1.4]
+  
+  bandwidth_lists_different:
+    - [0.03, 0.1, 0.4, 1.4]
+    - [0.1, 0.4, 1.4]
+
+conv_params:
+  kernels: ['gaussian', 'gp']
+  aggregations: ["concat"] 
+  kernel_size: 3
+  
+  bandwidth_lists_same:
+    - [1.4, 1.4, 1.4] 
+    
+  bandwidth_lists_different:
+    - [0.03, 0.1, 0.4, 1.4]
+    - [0.1, 0.4, 1.4]

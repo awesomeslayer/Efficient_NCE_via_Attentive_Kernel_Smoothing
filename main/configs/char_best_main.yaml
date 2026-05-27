@@ -1,0 +1,69 @@
+seeds: [5]
+dataset_name: "CharacterTrajectories"
+
+plot_data: false
+add_time: "no"
+inspect_interpolation: true      
+save_attention_weights: true     
+
+test_noise_robustness: false
+test_noise_levels: [0.0, 0.01, 0.02, 0.05, 0.1, 0.3, 0.5, 0.7]
+
+data_dir: "./data/"
+results_dir: "experiment_times"
+plots_dir: "./plots"
+log_dir: "logs"
+runs_dir: "runs"
+
+num_epochs: 25
+batch_size: 256
+time_scaling_factors: ["no"]
+tolerances : [0.001]     
+lr : 0.0001              
+weight_decay : 0.00001
+hidden_dim: 128
+
+experiments_to_run:
+  baseline: true   
+  kernel: true     
+  gp: true         
+  qformer: true    
+  conv: true       
+  odernn: false    
+  grud: false      
+  log_ncde: false  
+
+baseline_params:
+  interpolations: ["cubic", "linear"] 
+
+kernel_params:
+  kernels: ['gaussian']
+  bandwidths: [0.05] 
+
+gp_params:
+  length_scales: [0.6] 
+  noise_stds: [0.01]
+
+
+qformer_params:
+  kernels: ['gaussian', 'gp']
+  aggregations: ["concat"] 
+  
+  bandwidth_lists_same:
+    - [1.4, 1.4, 1.4, 1.4] 
+  
+  bandwidth_lists_different:
+    - [0.03, 0.1, 0.4, 1.4] 
+    - [0.03, 0.1, 0.4, 1.4]
+
+conv_params:
+  kernels: ['gaussian', 'gp']
+  aggregations: ["concat"] 
+  kernel_size: 3
+  
+  bandwidth_lists_same:
+    - [1.4, 1.4, 1.4, 1.4]
+  
+  bandwidth_lists_different:
+    - [0.03, 0.1, 0.4, 1.4]
+    - [0.03, 0.1, 0.4, 1.4]

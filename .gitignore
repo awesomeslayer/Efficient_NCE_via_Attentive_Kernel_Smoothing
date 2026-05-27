@@ -1,0 +1,61 @@
+# -------------------------
+# Python cache / build
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# -------------------------
+# System / Editor files
+# -------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+log-neural-cdes
+# -------------------------
+# Virtual environments
+# -------------------------
+venv/
+.env/
+.envrc
+.venv/
+
+# -------------------------
+# Logs
+# -------------------------
+logs/
+*.log
+
+# -------------------------
+# TensorBoard logs
+# -------------------------
+events.out.tfevents.*
+runs/
+runs_time/
+
+# -------------------------
+# Data files
+# -------------------------
+data/
+*.pkl
+*.npz
+*.npy
+*.csv
+*.tsv
+
+*.key
+*.pem
+*.env
+
+credentials
+old_plots/
+old/
