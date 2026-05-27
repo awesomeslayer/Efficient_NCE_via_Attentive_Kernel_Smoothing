@@ -1,0 +1,33 @@
+[project]
+name = "fneuralcde"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "argparse>=1.4.0",
+    "great-tables>=0.21.0",
+    "lightning>=2.6.1",
+    "matplotlib>=3.10.8",
+    "mlflow>=3.10.1",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "polars>=1.39.3",
+    "pymupdf>=1.27.2.2",
+    "selenium>=4.41.0",
+    "torch>=2.11.0",
+    "torchcde>=0.2.5",
+    "torchmetrics>=1.9.0",
+    "weasyprint>=68.1",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.setuptools]
+py-modules = ["main", "forecasting"]
