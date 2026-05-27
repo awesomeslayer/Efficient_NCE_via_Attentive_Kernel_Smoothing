@@ -103,12 +103,37 @@ Use the `run.sh` script to train, aggregate, and plot results automatically:
 
 ## 4. Time-Series Forecasting (PyTorch Lightning)
 
-We extend our methodology to generative forecasting under missing data scenarios using the `forecasting/` module. The architecture utilizes **RevIN** normalization and a linear forecasting head on top of the MVC-GP encoder.
+We extend our methodology to generative forecasting under missing data scenarios. To keep the main repository focused and lightweight, the forecasting pipeline and its specific dependencies are maintained in a dedicated `forecasting` branch. The architecture utilizes **RevIN** normalization and a linear forecasting head on top of the MVC-GP encoder.
+
+### Switching to the Forecasting Branch
+To access the code and run forecasting experiments, you must first switch to the corresponding branch:
+```bash
+git checkout forecasting
+```
 
 ### Running Forecasting Experiments
 Forecasting tasks (e.g., ETTm1) are managed via PyTorch Lightning and tracked via MLFlow. Data loading automatically supports simulating extreme missingness via the `irregularity_fraction` parameter.
 
-To run the forecasting pipeline:
+We provide an automated bash script `forecasting_exps.sh` to run the baselines (GRU, Cubic Neural CDE) and our method (MVC GP) sequentially across multiple seeds.
+
+```bash
+# Usage: ./forecasting_exps.sh <dataset_name> <seed1> [seed2] ...
+# Example: Run ETTm1 forecasting with 30% missing data (irregularity=0.7) on 3 seeds
+chmod +x forecasting_exps.sh
+./forecasting_exps.sh ETTm1 42 123 456
+```
+
+You can also run a single experiment manually via the entry point:
+```bash
+python run_forecasting.py \
+    --csv_path data/ETTm1.csv \
+    --model_type mvc \
+    --interp_type gp \
+    --irregularity_fraction 0.7 \
+    --seed 42
+```
+
+To aggregate and view the MLFlow results as a Markdown table:
 ```bash
 python -m forecasting.scripts.gen_table
 ```
